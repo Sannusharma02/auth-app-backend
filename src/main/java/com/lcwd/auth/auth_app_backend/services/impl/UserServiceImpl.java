@@ -1,4 +1,4 @@
-package com.lcwd.auth.auth_app_backend.services;
+package com.lcwd.auth.auth_app_backend.services.impl;
 
 import com.lcwd.auth.auth_app_backend.dtos.UserDto;
 import com.lcwd.auth.auth_app_backend.entities.User;
@@ -6,6 +6,7 @@ import com.lcwd.auth.auth_app_backend.enums.Provider;
 import com.lcwd.auth.auth_app_backend.exceptions.ResourceNotFoundException;
 import com.lcwd.auth.auth_app_backend.helpers.UserHelper;
 import com.lcwd.auth.auth_app_backend.repositories.UserRepository;
+import com.lcwd.auth.auth_app_backend.services.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
