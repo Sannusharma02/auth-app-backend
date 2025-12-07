@@ -1,6 +1,5 @@
 package com.lcwd.auth.auth_app_backend.security;
 
-import com.lcwd.auth.auth_app_backend.exceptions.ResourceNotFoundException;
 import com.lcwd.auth.auth_app_backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
