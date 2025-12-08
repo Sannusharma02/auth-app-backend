@@ -5,6 +5,7 @@ server:
 # database connections
 spring:
   datasource:
+#    url: jdbc:mysql://host.docker.internal:3306/auth_app
     url: jdbc:mysql://localhost:3306/auth_app
     username: root
     password: password
@@ -43,3 +44,4 @@ security:
     cookie-secure: ${JWT_COOKIE_SECURE:true}
     cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
     cookie-same-site: ${JWT_COOKIE_SAME_SITE:lax}
+    cookie-domain: ${JWT_COOKIE_DOMAIN:localhost}
