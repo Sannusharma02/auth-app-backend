@@ -33,11 +33,13 @@ public class User implements UserDetails {
     private Instant createdAt = Instant.now();
     private Instant updatedAt = Instant.now();
 
+
 //    private String gender;
 //    private Address address;
 
     @Enumerated(EnumType.STRING)
     private Provider provider=Provider.LOCAL;
+    private String providerId;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
