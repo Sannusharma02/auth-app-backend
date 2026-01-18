@@ -1,6 +1,9 @@
 package com.lcwd.auth.auth_app_backend.services.impl;
 
+import com.lcwd.auth.auth_app_backend.config.AppConstants;
 import com.lcwd.auth.auth_app_backend.dtos.UserDto;
+import com.lcwd.auth.auth_app_backend.entities.Role;
+import com.lcwd.auth.auth_app_backend.repositories.RoleRepository;
 import com.lcwd.auth.auth_app_backend.services.AuthService;
 import com.lcwd.auth.auth_app_backend.services.UserService;
 import lombok.AllArgsConstructor;
@@ -13,7 +16,6 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-
     @Override
     public UserDto registerUser(UserDto userDto) {
 
@@ -22,6 +24,7 @@ public class AuthServiceImpl implements AuthService {
         // verify password
         //default role
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
         return userService.createUser(userDto);
 
     }

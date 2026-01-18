@@ -1,10 +1,12 @@
 package com.lcwd.auth.auth_app_backend.controllers;
 
+import com.lcwd.auth.auth_app_backend.config.AppConstants;
 import com.lcwd.auth.auth_app_backend.dtos.UserDto;
 import com.lcwd.auth.auth_app_backend.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,7 +47,8 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(userDto,userId));
     }
 
-    //get user
+    //get user by id
+    @PreAuthorize("hasRole('"+ AppConstants.ADMIN_ROLE +"')")
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("userId") String userId) {
         return ResponseEntity.ok(userService.getUserById(userId));
