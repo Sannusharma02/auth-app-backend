@@ -1,8 +1,8 @@
 package com.lcwd.auth.auth_app_backend;
 
-import com.lcwd.auth.auth_app_backend.config.AppConstants;
-import com.lcwd.auth.auth_app_backend.entities.Role;
-import com.lcwd.auth.auth_app_backend.repositories.RoleRepository;
+import com.lcwd.auth.auth_app_backend.auth.config.AppConstants;
+import com.lcwd.auth.auth_app_backend.auth.entities.Role;
+import com.lcwd.auth.auth_app_backend.auth.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
