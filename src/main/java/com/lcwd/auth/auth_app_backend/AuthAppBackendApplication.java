@@ -28,7 +28,7 @@ public class AuthAppBackendApplication implements CommandLineRunner {
         //GUEST
 
         roleRepository.findByName("ROLE_"+AppConstants.ADMIN_ROLE).ifPresentOrElse( role -> {
-            System.out.println(role.getName());
+//            System.out.println(role.getName());
         }, () -> {
             Role role = new Role();
             role.setName("ROLE_" + AppConstants.ADMIN_ROLE);
@@ -37,7 +37,7 @@ public class AuthAppBackendApplication implements CommandLineRunner {
         });
 
         roleRepository.findByName("ROLE_"+AppConstants.GUEST_ROLE).ifPresentOrElse( role -> {
-            System.out.println(role.getName());
+//            System.out.println(role.getName());
         }, () -> {
             Role role = new Role();
             role.setName("ROLE_" + AppConstants.GUEST_ROLE);
