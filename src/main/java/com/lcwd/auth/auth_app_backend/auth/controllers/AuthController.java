@@ -83,6 +83,7 @@ public class AuthController {
         return ResponseEntity.ok(tokenResponse);
     }
 
+
     private Authentication authenticate(LoginRequest loginRequest){
         try {
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password()));
