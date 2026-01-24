@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -58,8 +59,19 @@ public class SecurityConfig {
                 )
                 .logout(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception ->exception.authenticationEntryPoint((request, response, authenticationException) ->{
-                    //error message
-                    authenticationException.printStackTrace();
+                                    // ADD THIS DEBUG LOGGING
+                                    var auth = SecurityContextHolder.getContext().getAuthentication();
+                                    System.out.println("=== AUTHENTICATION DEBUG ===");
+                                    System.out.println("Authentication: " + auth);
+                                    if (auth != null) {
+                                        System.out.println("Principal: " + auth.getPrincipal());
+                                        System.out.println("Authorities: " + auth.getAuthorities());
+                                        System.out.println("Is Authenticated: " + auth.isAuthenticated());
+                                    }
+                                    System.out.println("Request URI: " + request.getRequestURI());
+                                    System.out.println("===========================");
+
+                                    authenticationException.printStackTrace();
                     response.setStatus(401);
                     response.setContentType("application/json");
                     String message = "Unauthorized Access ! " + authenticationException.getMessage();
