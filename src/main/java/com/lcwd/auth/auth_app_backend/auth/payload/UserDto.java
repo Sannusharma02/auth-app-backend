@@ -1,6 +1,6 @@
-package com.lcwd.auth.auth_app_backend.dtos;
+package com.lcwd.auth.auth_app_backend.auth.payload;
 
-import com.lcwd.auth.auth_app_backend.enums.Provider;
+import com.lcwd.auth.auth_app_backend.auth.enums.Provider;
 import lombok.*;
 
 import java.time.Instant;

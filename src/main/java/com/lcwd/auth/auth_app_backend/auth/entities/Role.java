@@ -1,4 +1,4 @@
-package com.lcwd.auth.auth_app_backend.entities;
+package com.lcwd.auth.auth_app_backend.auth.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

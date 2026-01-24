@@ -1,4 +1,4 @@
-package com.lcwd.auth.auth_app_backend.helpers;
+package com.lcwd.auth.auth_app_backend.auth.helpers;
 
 import java.util.UUID;
 

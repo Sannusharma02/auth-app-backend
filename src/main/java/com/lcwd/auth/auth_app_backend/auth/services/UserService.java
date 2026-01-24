@@ -1,6 +1,6 @@
-package com.lcwd.auth.auth_app_backend.services;
+package com.lcwd.auth.auth_app_backend.auth.services;
 
-import com.lcwd.auth.auth_app_backend.dtos.UserDto;
+import com.lcwd.auth.auth_app_backend.auth.payload.UserDto;
 
 public interface UserService {
 
@@ -21,4 +21,5 @@ public interface UserService {
 
     //get all users
     Iterable<UserDto> getAllUsers();
+
 }

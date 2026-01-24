@@ -1,4 +1,4 @@
-package com.lcwd.auth.auth_app_backend.enums;
+package com.lcwd.auth.auth_app_backend.auth.enums;
 
 public enum Provider {
 

@@ -1,6 +1,6 @@
-package com.lcwd.auth.auth_app_backend.repositories;
+package com.lcwd.auth.auth_app_backend.auth.repositories;
 
-import com.lcwd.auth.auth_app_backend.entities.User;
+import com.lcwd.auth.auth_app_backend.auth.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

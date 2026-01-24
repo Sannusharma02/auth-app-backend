@@ -1,12 +1,15 @@
-package com.lcwd.auth.auth_app_backend.services.impl;
+package com.lcwd.auth.auth_app_backend.auth.services.impl;
 
-import com.lcwd.auth.auth_app_backend.dtos.UserDto;
-import com.lcwd.auth.auth_app_backend.entities.User;
-import com.lcwd.auth.auth_app_backend.enums.Provider;
+import com.lcwd.auth.auth_app_backend.auth.config.AppConstants;
+import com.lcwd.auth.auth_app_backend.auth.payload.UserDto;
+import com.lcwd.auth.auth_app_backend.auth.entities.Role;
+import com.lcwd.auth.auth_app_backend.auth.entities.User;
+import com.lcwd.auth.auth_app_backend.auth.enums.Provider;
 import com.lcwd.auth.auth_app_backend.exceptions.ResourceNotFoundException;
-import com.lcwd.auth.auth_app_backend.helpers.UserHelper;
-import com.lcwd.auth.auth_app_backend.repositories.UserRepository;
-import com.lcwd.auth.auth_app_backend.services.UserService;
+import com.lcwd.auth.auth_app_backend.auth.helpers.UserHelper;
+import com.lcwd.auth.auth_app_backend.auth.repositories.RoleRepository;
+import com.lcwd.auth.auth_app_backend.auth.repositories.UserRepository;
+import com.lcwd.auth.auth_app_backend.auth.services.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final RoleRepository roleRepository;
 
     @Override
     @Transactional
@@ -38,8 +42,14 @@ public class UserServiceImpl implements UserService {
         user.setProvider(userDto.getProvider()!=null ? userDto.getProvider() : Provider.LOCAL);
         //role assign here to user __ for auth
         // todo
-        User savedUser = userRepository.save(user);
+        //role assign default role
 
+        Role role = roleRepository.findByName("ROLE_"+ AppConstants.GUEST_ROLE).orElse(null);
+        user.getRoles().add(role);
+
+
+
+        User savedUser = userRepository.save(user);
         return modelMapper.map(savedUser,UserDto.class);
     }
 

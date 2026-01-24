@@ -1,4 +1,4 @@
-package com.lcwd.auth.auth_app_backend.dtos;
+package com.lcwd.auth.auth_app_backend.auth.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
