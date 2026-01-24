@@ -5,11 +5,13 @@ public class AppConstants {
             "/api/v1/auth/**",
             "/v3/api-docs/**",
             "/swagger-ui.html",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+            "/api/v1/users/**",
+            "/**"
     };
 
     public static final String[] AUTH_ADMIN_URLS = {
-            "/api/v1/users/**"
+
     };
 
     public static final String[] AUTH_GUEST_URLS = {

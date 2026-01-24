@@ -4,6 +4,22 @@ server:
 
 # database connections
 spring:
+  ai:
+    chat:
+      client:
+#        enabled: false
+#    ollama:
+#      base-url: http://localhost:11434
+#      chat:
+#        options:
+#          model: codellama:latest
+#          temperature: 0.7
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-5.2
+          temperature: 0.2
   datasource:
 #    url: jdbc:mysql://host.docker.internal:3306/auth_app
     url: jdbc:mysql://localhost:3306/auth_app
@@ -74,3 +90,8 @@ app:
     frontend:
       success-redirect: ${FRONT_END_SUCCESS_REDIRECT:http://localhost:5173/oauth/success}
       failure-redirect: ${FRONT_END_FAILURE_REDIRECT:http://localhost:5173/oauth/failure}
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
