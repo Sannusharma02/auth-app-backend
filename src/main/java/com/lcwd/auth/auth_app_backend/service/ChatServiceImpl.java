@@ -14,7 +14,7 @@ public class ChatServiceImpl implements ChatService {
 
     public ChatClient chatClient;
 
-    public ChatServiceImpl(ChatClient.Builder builder) {
+    public ChatServiceImpl(ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 

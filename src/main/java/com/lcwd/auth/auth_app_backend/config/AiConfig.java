@@ -13,13 +13,12 @@ public class AiConfig {
     @Bean
     public ChatClient chatClient(ChatClient.Builder builder) {
         return builder
+                .defaultAdvisors()
                 .defaultSystem("You are a helpful coding assistant. You are an expert in coding.")
-                .defaultOptions(
-                        OllamaChatOptions.builder()
+                .defaultOptions(OllamaChatOptions.builder()
                                 .model("codellama:latest")
                                 .temperature(0.3)
-                                .build()
-                )
+                                .build())
                 .build();
     }
 
