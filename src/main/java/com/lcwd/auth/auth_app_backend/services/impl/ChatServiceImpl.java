@@ -28,7 +28,7 @@ public class ChatServiceImpl implements ChatService {
 //                .call()
 //                .content();
 
-        Prompt prompt1 =new Prompt(query);
+        Prompt prompt1 = new Prompt(query);
         //modify this prompt and extra things to prompt make it more interactive
 
         String queryStr = "As an expert in coding and programming. Always write program in JAVA. Now reply for this question : {query}";
@@ -37,8 +37,8 @@ public class ChatServiceImpl implements ChatService {
         // promot
         //get prompt from resources
         var tutorials = chatClient
-                .prompt()
-                .user(u-> u.text(queryStr).param("query",query))
+                .prompt(query)
+                .user(u -> u.text(queryStr).param("query", query))
                 .call()
                 .content();
 
