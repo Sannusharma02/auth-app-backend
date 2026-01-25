@@ -29,13 +29,17 @@ public class ChatServiceImpl implements ChatService {
 //                .call()
 //                .content();
 
-        Prompt prompt1 =new Prompt(query, OllamaChatOptions.builder()
-                .model("codellama:latest")
-                .temperature(0.3)
-                .build());
+        Prompt prompt1 =new Prompt(query);
+        //modify this prompt and extra things to prompt make it more interactive
 
+        String queryStr = "As an expert in coding and programming. Always write program in JAVA. Now reply for this question : {query}";
+
+        //prompt template
+        // promot
+        //get prompt from resources
         var tutorials = chatClient
-                .prompt(query)
+                .prompt()
+                .user(u-> u.text(queryStr).param("query",query))
                 .call()
                 .content();
 
