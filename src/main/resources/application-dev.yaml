@@ -20,6 +20,7 @@ spring:
 #        options:
 #          model: gpt-5.2
 #          temperature: 0.2
+#          max_tokens: 1000
   datasource:
 #    url: jdbc:mysql://host.docker.internal:3306/auth_app
     url: jdbc:mysql://localhost:3306/auth_app

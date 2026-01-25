@@ -3,6 +3,7 @@ package com.lcwd.auth.auth_app_backend.service;
 import com.lcwd.auth.auth_app_backend.entity.Tut;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,11 @@ public class ChatServiceImpl implements ChatService {
     public ChatClient chatClient;
 
     public ChatServiceImpl(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
+        this.chatClient = chatClient;
     }
 
     @Override
-    public List<Tut> chat(String query) {
+    public String chat(String query) {
 //        String prompt="about Virat kolhi?";
 
 //        String content = chatClient
@@ -28,15 +29,17 @@ public class ChatServiceImpl implements ChatService {
 //                .call()
 //                .content();
 
-        Prompt prompt1 =new Prompt(query);
+        Prompt prompt1 =new Prompt(query, OllamaChatOptions.builder()
+                .model("codellama:latest")
+                .temperature(0.3)
+                .build());
 
-        List<Tut> tutorial = chatClient
-                .prompt(prompt1)
+        var tutorials = chatClient
+                .prompt(query)
                 .call()
-                .entity(new ParameterizedTypeReference<List<Tut>>() {
-                });
+                .content();
 
-        return tutorial;
+        return tutorials;
     }
 
 }
