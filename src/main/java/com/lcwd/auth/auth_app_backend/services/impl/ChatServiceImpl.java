@@ -1,13 +1,12 @@
-package com.lcwd.auth.auth_app_backend.service;
+package com.lcwd.auth.auth_app_backend.services.impl;
 
-import com.lcwd.auth.auth_app_backend.entity.Tut;
+import com.lcwd.auth.auth_app_backend.services.ChatService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.ollama.api.OllamaChatOptions;
-import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Map;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -46,4 +45,20 @@ public class ChatServiceImpl implements ChatService {
         return tutorials;
     }
 
+    @Override
+    public String chatTemplate() {
+
+        //first step
+        PromptTemplate strTemplate = PromptTemplate.builder().template("What is {techName}? tell me example of {exampleName}").build();
+
+        //render the template
+        String renderedMessage = strTemplate.render(Map.of(
+                "techName", "Spring",
+                "exampleName", "Spring Boot"
+        ));
+
+        Prompt prompt = new Prompt(renderedMessage);
+
+        return this.chatClient.prompt(prompt).call().content();
+    }
 }

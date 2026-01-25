@@ -2,6 +2,7 @@ package com.lcwd.auth.auth_app_backend.auth.services.impl;
 
 import com.lcwd.auth.auth_app_backend.auth.entities.Role;
 import com.lcwd.auth.auth_app_backend.auth.entities.User;
+import com.lcwd.auth.auth_app_backend.auth.services.JwtService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
@@ -20,14 +21,14 @@ import java.util.UUID;
 @Service
 @Getter
 @Setter
-public class JwtService {
+public class JwtServiceImpl implements JwtService {
 
     private final SecretKey key;
     private final long accessTtlSeconds;
     private final long refreshTtlSeconds;
     private final String issuer;
 
-    public JwtService(
+    public JwtServiceImpl(
             @Value("${security.jwt.secret}") String secret,
             @Value("${security.jwt.access-ttl-seconds}") long accessTtlSeconds,
             @Value("${security.jwt.refresh-ttl-seconds}") long refreshTtlSeconds,
@@ -98,6 +99,5 @@ public class JwtService {
     public String getJti(String token) {
         return parse(token).getPayload().getId();
     }
-
 
 }

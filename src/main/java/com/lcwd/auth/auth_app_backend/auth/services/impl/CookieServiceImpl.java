@@ -1,5 +1,6 @@
 package com.lcwd.auth.auth_app_backend.auth.services.impl;
 
+import com.lcwd.auth.auth_app_backend.auth.services.CookieService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Getter
-public class CookieService {
+public class CookieServiceImpl implements CookieService {
 
     private final String refreshTokenCookieName;
     private final boolean cookieHttpOnly;
@@ -19,9 +20,9 @@ public class CookieService {
 //    private final int cookieMaxAge;
     private final String cookieDomain;
     private final String cookieSameSite;
-    private final Logger logger = LoggerFactory.getLogger(CookieService.class);
+    private final Logger logger = LoggerFactory.getLogger(CookieServiceImpl.class);
 
-    public CookieService(
+    public CookieServiceImpl(
 
             @Value("${security.jwt.refresh-token-cookie-name}") String refreshTokenCookieName,
             @Value("${security.jwt.cookie-http-only}") boolean cookieHttpOnly,
