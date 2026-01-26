@@ -4,6 +4,9 @@ import com.lcwd.auth.auth_app_backend.services.ChatService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.chat.prompt.SystemPromptTemplate;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -12,6 +15,12 @@ import java.util.Map;
 public class ChatServiceImpl implements ChatService {
 
     public ChatClient chatClient;
+
+    @Value("classpath:/prompts/user-message.st")
+    private Resource userMessage;
+
+    @Value("classpath:/prompts/system-message.st")
+    private Resource systemMessage;
 
     public ChatServiceImpl(ChatClient chatClient) {
         this.chatClient = chatClient;
@@ -49,16 +58,46 @@ public class ChatServiceImpl implements ChatService {
     public String chatTemplate() {
 
         //first step
-        PromptTemplate strTemplate = PromptTemplate.builder().template("What is {techName}? tell me example of {exampleName}").build();
+//        PromptTemplate strTemplate = PromptTemplate.builder().template("What is {techName}? tell me example of {exampleName}").build();
+//
+//        //render the template
+//        String renderedMessage = strTemplate.render(Map.of(
+//                "techName", "Spring",
+//                "exampleName", "Spring Boot"
+//        ));
+//
+//        Prompt prompt = new Prompt(renderedMessage);
 
-        //render the template
-        String renderedMessage = strTemplate.render(Map.of(
-                "techName", "Spring",
-                "exampleName", "Spring Boot"
-        ));
+//2nd
 
-        Prompt prompt = new Prompt(renderedMessage);
+//        var systemPromptTemplate = SystemPromptTemplate.builder()
+//                .template("You are a helpful coding assistant. You are an expert in coding.")
+//                .build();
+//
+//        var systemMessage = systemPromptTemplate.createMessage();
+//
+//        var userPromptTemplate = PromptTemplate.builder().template("What is {techName}? tell me example of {exampleName}").build();
+//        var userPromptMessage = userPromptTemplate.createMessage(Map.of(
+//                "techName", "Spring",
+//                "exampleName", "Spring Boot"
+//        ));
+//
+//        Prompt prompt = new Prompt(systemMessage,userPromptMessage);
 
-        return this.chatClient.prompt(prompt).call().content();
+        return this.chatClient
+                .prompt()
+                .system(system->
+                        system.text(this.systemMessage)
+//                        system.text("You are a helpful coding assistant. You are an expert in coding.")
+                )
+                .user(
+                        user->user.text(this.userMessage)
+                                .param("concept", "Spring controller examples")
+//                        user-> user.text("What is {techName}? tell me also about {exampleName}")
+//                                .param("techName", "Spring controller examples")
+//                                .param("exampleName", "Collection framework examples in java")
+                )
+                .call()
+                .content();
     }
 }

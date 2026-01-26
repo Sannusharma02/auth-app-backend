@@ -14,9 +14,9 @@ class AuthAppBackendApplicationTests {
 	@Test
 	void contextLoads() {
         var promptTemplate = PromptTemplate.builder()
-                .resource(null)
+                .template("Hello {var1}, Welcome to Spring AI")
                 .build();
-        var rendered = promptTemplate.render(Map.of("var1", "Hello World!"));
+        var rendered = promptTemplate.render(Map.of("var1", "World!"));
         System.out.println(rendered);
 	}
 
