@@ -11,22 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class ChatController {
 
-//    private ChatClient openAiChatClient;
-//    private ChatClient ollamaChatClient;
-//
-//    public ChatController(@Qualifier("openAiChatClient") ChatClient openAiChatClient,@Qualifier("ollamaChatClient") ChatClient ollamaChatClient) {
-//        this.openAiChatClient = openAiChatClient;
-//        this.ollamaChatClient = ollamaChatClient;
-//    }
-
-//    private ChatClient chatClient;
-
     private ChatService chatService;
-
-//    public ChatController(ChatClient.Builder chatClientBuilder) {
-//        this.chatClient = chatClientBuilder.build();
-//    }
-
     public ChatController(ChatService chatService) {
         this.chatService = chatService;
     }
@@ -34,7 +19,7 @@ public class ChatController {
     @GetMapping("/chat")
     public ResponseEntity<String> chat(
             @RequestParam(value = "q", required = true) String q){
-
         return ResponseEntity.ok(chatService.chat(q));
     }
+
 }
