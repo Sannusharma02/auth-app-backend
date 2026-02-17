@@ -1,0 +1,7 @@
+tunnel: app_auth
+credentials-file: /data/data/com.termux/files/home/.cloudflared/<TUNNEL-ID>.json
+
+ingress:
+  - hostname: my-phone-server.authapp.com
+    service: http://localhost:8083
+  - service: http_status:404
