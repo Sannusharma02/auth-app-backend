@@ -1,0 +1,67 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth_app
+    username: root
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+  ai:
+    chat:
+      client:
+        enabled: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: test-client-id
+            client-secret: test-client-secret
+            scope:
+              - email
+              - profile
+              - openid
+          github:
+            client-id: test-client-id
+            client-secret: test-client-secret
+            scope:
+              - user:email
+              - read:user
+
+logging:
+  level:
+    org.springframework.security: INFO
+
+security:
+  jwt:
+    secret: saiofal;vkasfbehwqpofhjashofjaswfpojasfvbafop[hfifonfo[shjfwefjjfslajfsahfoshffasnbash[f
+    issuer: api.substring.com
+    access-ttl-seconds: 3600
+    refresh-ttl-seconds: 86400
+    refresh-token-cookie-name: refreshToken
+    cookie-secure: false
+    cookie-http-only: true
+    cookie-same-site: lax
+    cookie-domain: 192.168.1.15
+
+app:
+  cors:
+    front-end-url: http://192.168.1.15:3000
+  auth:
+    frontend:
+      success-redirect: http://192.168.1.15:3000/oauth/success
+      failure-redirect: http://192.168.1.15:3000/oauth/failure
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
