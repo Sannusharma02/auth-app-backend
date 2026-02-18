@@ -54,11 +54,12 @@ security:
 
 app:
   cors:
-    front-end-url: http://192.168.1.15:3000
+#    front-end-url: http://192.168.1.15:3000
+    front-end-url:  https://least-sandy-starsmerchant-grand.trycloudflare.com
   auth:
     frontend:
-      success-redirect: http://192.168.1.15:3000/oauth/success
-      failure-redirect: http://192.168.1.15:3000/oauth/failure
+      success-redirect: https://least-sandy-starsmerchant-grand.trycloudflare.com/oauth/success
+      failure-redirect: https://least-sandy-starsmerchant-grand.trycloudflare.com/oauth/failure
 
 springdoc:
   api-docs:
