@@ -12,18 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class ChatController {
 
-    private ChatClient openAiChatClient;
-    private ChatClient ollamaChatClient;
+    private ChatClient chatClient;
 
-    public ChatController(@Qualifier("openAiChatClient") ChatClient openAiChatClient,@Qualifier("ollamaChatClient") ChatClient ollamaChatClient) {
-        this.openAiChatClient = openAiChatClient;
-        this.ollamaChatClient = ollamaChatClient;
+    public ChatController(ChatClient.Builder chatClientBuilder) {
+        this.chatClient = chatClientBuilder.build();
     }
 
     @GetMapping("/chat")
     public ResponseEntity<String> chat(
             @RequestParam(value = "q", required = true) String q){
-        var resultResponse = this.ollamaChatClient
+        var resultResponse = this.chatClient
                 .prompt(q)
                 .call()
                 .content();
