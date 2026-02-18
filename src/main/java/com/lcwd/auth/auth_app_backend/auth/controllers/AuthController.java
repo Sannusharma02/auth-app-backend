@@ -8,8 +8,8 @@ import com.lcwd.auth.auth_app_backend.auth.entities.RefreshToken;
 import com.lcwd.auth.auth_app_backend.auth.entities.User;
 import com.lcwd.auth.auth_app_backend.auth.repositories.RefreshTokenRepository;
 import com.lcwd.auth.auth_app_backend.auth.repositories.UserRepository;
-import com.lcwd.auth.auth_app_backend.auth.services.impl.CookieService;
-import com.lcwd.auth.auth_app_backend.auth.services.impl.JwtService;
+import com.lcwd.auth.auth_app_backend.auth.services.impl.CookieServiceImpl;
+import com.lcwd.auth.auth_app_backend.auth.services.impl.JwtServiceImpl;
 import com.lcwd.auth.auth_app_backend.auth.services.AuthService;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.Cookie;
@@ -46,9 +46,9 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtService;
     private final ModelMapper modelMapper;
-    private final CookieService cookieService;
+    private final CookieServiceImpl cookieServiceImpl;
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
@@ -76,8 +76,8 @@ public class AuthController {
         String refreshToken = jwtService.generateRefreshToken(user, refreshTokenOb.getJti());
 
         // use cookie service  to attach refresh token
-        cookieService.attachRefreshCookie(response, refreshToken, (int)jwtService.getRefreshTtlSeconds());
-        cookieService.addNoStoreHeaders(response);
+        cookieServiceImpl.attachRefreshCookie(response, refreshToken, (int)jwtService.getRefreshTtlSeconds());
+        cookieServiceImpl.addNoStoreHeaders(response);
 
         TokenResponse tokenResponse = TokenResponse.of(accessToken,refreshToken,jwtService.getAccessTtlSeconds(),modelMapper.map(user,UserDto.class));
         return ResponseEntity.ok(tokenResponse);
@@ -140,8 +140,8 @@ public class AuthController {
         refreshTokenRepository.save(newRefreshTokenOb);
         String newAccessToken = jwtService.generateToken(user);
         String newRefreshToken = jwtService.generateRefreshToken(user, newRefreshTokenOb.getJti());
-        cookieService.attachRefreshCookie(response, newRefreshToken, (int)jwtService.getRefreshTtlSeconds());
-        cookieService.addNoStoreHeaders(response);
+        cookieServiceImpl.attachRefreshCookie(response, newRefreshToken, (int)jwtService.getRefreshTtlSeconds());
+        cookieServiceImpl.addNoStoreHeaders(response);
         return ResponseEntity.ok(TokenResponse.of(newAccessToken,newRefreshToken,jwtService.getAccessTtlSeconds(),modelMapper.map(user,UserDto.class)));
     }
 
@@ -161,8 +161,8 @@ public class AuthController {
         });
 
 //        use cookieUtil (save behavior)
-        cookieService.clearRefreshCookie(response);
-        cookieService.addNoStoreHeaders(response);
+        cookieServiceImpl.clearRefreshCookie(response);
+        cookieServiceImpl.addNoStoreHeaders(response);
         SecurityContextHolder.clearContext();
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -173,7 +173,7 @@ public class AuthController {
         if(request.getCookies()!=null) {
 
             Optional<String> fromCookie = Arrays.stream(request.getCookies())
-                    .filter(cookie -> cookieService.getRefreshTokenCookieName().equals(cookie.getName()))
+                    .filter(cookie -> cookieServiceImpl.getRefreshTokenCookieName().equals(cookie.getName()))
                     .map(Cookie::getValue)
                     .filter(v-> !v.isBlank())
                     .findFirst();

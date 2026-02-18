@@ -1,6 +1,6 @@
 package com.lcwd.auth.auth_app_backend.auth.config;
 
-import com.lcwd.auth.auth_app_backend.auth.services.impl.JwtService;
+import com.lcwd.auth.auth_app_backend.auth.services.impl.JwtServiceImpl;
 import com.lcwd.auth.auth_app_backend.auth.helpers.UserHelper;
 import com.lcwd.auth.auth_app_backend.auth.repositories.UserRepository;
 import io.jsonwebtoken.*;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtService;
     private final UserRepository userRepository;
     private Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     @Override

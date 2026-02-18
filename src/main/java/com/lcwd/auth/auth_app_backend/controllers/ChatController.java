@@ -1,7 +1,6 @@
 package com.lcwd.auth.auth_app_backend.controllers;
 
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.lcwd.auth.auth_app_backend.services.ChatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,19 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class ChatController {
 
-    private ChatClient chatClient;
-
-    public ChatController(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder.build();
+    private ChatService chatService;
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
     }
 
     @GetMapping("/chat")
     public ResponseEntity<String> chat(
             @RequestParam(value = "q", required = true) String q){
-        var resultResponse = this.chatClient
-                .prompt(q)
-                .call()
-                .content();
-        return ResponseEntity.ok(resultResponse);
+        return ResponseEntity.ok(chatService.chat(q));
     }
+
 }

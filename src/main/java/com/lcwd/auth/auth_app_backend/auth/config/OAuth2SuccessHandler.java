@@ -5,8 +5,8 @@ import com.lcwd.auth.auth_app_backend.auth.entities.User;
 import com.lcwd.auth.auth_app_backend.auth.enums.Provider;
 import com.lcwd.auth.auth_app_backend.auth.repositories.RefreshTokenRepository;
 import com.lcwd.auth.auth_app_backend.auth.repositories.UserRepository;
-import com.lcwd.auth.auth_app_backend.auth.services.impl.CookieService;
-import com.lcwd.auth.auth_app_backend.auth.services.impl.JwtService;
+import com.lcwd.auth.auth_app_backend.auth.services.impl.CookieServiceImpl;
+import com.lcwd.auth.auth_app_backend.auth.services.impl.JwtServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -30,8 +30,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final UserRepository userRepository;
-    private final JwtService jwtService;
-    private final CookieService cookieService;
+    private final JwtServiceImpl jwtService;
+    private final CookieServiceImpl cookieServiceImpl;
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Value("${app.auth.frontend.success-redirect}")
@@ -124,7 +124,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         refreshTokenRepository.save(refreshTokenOb);
         String accessToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user, refreshTokenOb.getJti());
-        cookieService.attachRefreshCookie(response,refreshToken, (int) jwtService.getRefreshTtlSeconds());
+        cookieServiceImpl.attachRefreshCookie(response,refreshToken, (int) jwtService.getRefreshTtlSeconds());
 //        response.getWriter().write("Authentication success");
         response.sendRedirect(frontEndSuccessUrl);
     }
