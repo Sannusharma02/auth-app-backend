@@ -70,7 +70,13 @@ spring:
 
 logging:
   level:
-    org.springframework.security: DEBUG
+    org:
+      springframework:
+        security: DEBUG
+        ai:
+          chat:
+            client:
+              advisor: DEBUG
 
 security:
   jwt:
