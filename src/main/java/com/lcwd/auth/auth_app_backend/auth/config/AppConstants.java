@@ -6,7 +6,8 @@ public class AppConstants {
             "/v3/api-docs/**",
             "/swagger-ui.html",
             "/swagger-ui/**",
-            "/chat/**"
+            "/chat/**",
+            "/stream-chat/**"
     };
 
     public static final String[] AUTH_ADMIN_URLS = {
